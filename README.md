@@ -1,1 +1,118 @@
-# YuweiHouTulane.github.io
+# yuweihoutulane.github.io
+
+Personal academic site for Yuwei Hou, served by GitHub Pages at
+<https://yuweihoutulane.github.io>.
+
+Plain HTML and one CSS file. No Jekyll, no npm, no build step — push to the
+default branch and GitHub Pages serves the files as-is, usually within a minute.
+
+## Preview locally
+
+```bash
+python3 -m http.server 8000
+# then open http://localhost:8000
+```
+
+Opening the `.html` files directly with `file://` also works, but the `404.html`
+page uses absolute paths and only looks right when served.
+
+## Layout
+
+```
+index.html            Home — bio, research interests, news, selected papers
+research.html         Projects in more detail
+publications.html     Full publication list, preprints, presentations
+cv.html               Education, experience, awards, skills, service
+404.html              Shown for any URL that doesn't exist
+assets/css/main.css   All styling (light + dark, responsive, print)
+assets/img/           Profile photo lives here
+assets/cv/            Drop your CV PDF here as yuwei-hou-cv.pdf
+.nojekyll             Tells GitHub Pages to skip Jekyll and serve raw files
+robots.txt, sitemap.xml
+```
+
+## Filling in the placeholders
+
+Anything still unwritten is wrapped in `<span class="ph">`, which renders with a
+dashed yellow underline so it's obvious in the browser. Hovering shows a note
+about what belongs there.
+
+To finish a piece of content: replace the text, then **remove the `ph` class**
+(or the whole `<span>`). Find everything still outstanding with:
+
+```bash
+grep -rn 'class="ph"' *.html | wc -l    # how many are left
+grep -rn 'class="ph"' *.html            # where they are
+```
+
+Start here, roughly in order of payoff:
+
+1. **Your title and department** — in the sidebar of all five pages.
+2. **Email, Google Scholar, ORCID** — sidebar links. Delete any you don't want.
+3. **The About paragraphs** on `index.html`.
+4. **Real publications** on `publications.html`, then mirror two or three of
+   them into the Selected publications block on `index.html`.
+5. **Education and experience** on `cv.html`.
+6. **A photo** — see below.
+7. **Delete the yellow callout** at the top of `index.html` once the site is
+   presentable.
+
+### Replacing the photo
+
+Save a square image as `assets/img/profile.jpg` (600×600 or larger is plenty),
+then update the `<img>` tag in each page:
+
+```bash
+sed -i 's|assets/img/profile\.svg|assets/img/profile.jpg|g' index.html research.html publications.html cv.html
+sed -i 's|/assets/img/profile\.svg|/assets/img/profile.jpg|g' 404.html
+```
+
+Leave the `<link rel="icon">` tags pointing at the SVG, or swap in a real
+favicon.
+
+### The sidebar is duplicated
+
+Each page carries its own copy of the sidebar — the cost of having no build
+step. When you change it, change it in all five files. Only the
+`aria-current="page"` attribute differs between them, marking which nav item is
+the current page.
+
+## Adding a publication
+
+Copy one `<li class="pub">` block in `publications.html`, paste it under the
+right year, and edit four things: title, authors, venue, links. Keep
+`<span class="me">Hou Y</span>` around your own name so it renders bold. Delete
+any `<a>` for a link you don't have — a live link to `#` is worse than no link.
+
+## Adding a news item
+
+Newest first, at the top of the `<ul class="news">` in `index.html`:
+
+```html
+<li>
+  <time datetime="2026-09">Sep 2026</time>
+  <span>Paper accepted at [venue].</span>
+</li>
+```
+
+Keep the list to five or six items; delete the oldest as you add new ones.
+
+## Design notes
+
+- Colors, fonts, and spacing are CSS custom properties at the top of
+  `main.css`. The accent is Tulane green (`#00674a`); change `--accent` to
+  restyle the whole site.
+- Dark mode follows the visitor's OS setting via
+  `@media (prefers-color-scheme: dark)`. There's no manual toggle.
+- The layout is a sticky sidebar next to a single content column, collapsing to
+  a stacked header under 56rem.
+- No web fonts, no JavaScript, no external requests — the site works offline and
+  loads instantly.
+- `cv.html` has a print stylesheet: the browser's Print to PDF gives a usable
+  CV without the sidebar or footer.
+
+## Enabling GitHub Pages
+
+If the site isn't live yet: repository **Settings → Pages → Build and
+deployment**, set Source to *Deploy from a branch*, branch `main`, folder
+`/ (root)`.

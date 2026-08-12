@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://yuweihoutulane.github.io/sitemap.xml
