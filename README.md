@@ -31,31 +31,44 @@ assets/cv/            Drop your CV PDF here as yuwei-hou-cv.pdf
 robots.txt, sitemap.xml
 ```
 
-## Filling in the placeholders
+## What's still outstanding
 
 Anything still unwritten is wrapped in `<span class="ph">`, which renders with a
 dashed olive underline so it's obvious in the browser. Hovering shows a note
-about what belongs there.
+about what belongs there. To finish a piece: replace the text, then **remove the
+`ph` class** (or the whole `<span>`).
 
-To finish a piece of content: replace the text, then **remove the `ph` class**
-(or the whole `<span>`). Find everything still outstanding with:
+Find what's left — note the `\bph\b` pattern, which also catches spans carrying a
+second class like `class="cv__note ph"`:
 
 ```bash
-grep -rn 'class="ph"' *.html | wc -l    # how many are left
-grep -rn 'class="ph"' *.html            # where they are
+grep -rnE 'class="[^"]*\bph\b[^"]*"' *.html
 ```
 
-Start here, roughly in order of payoff:
+As of August 2026 two remain, both on `cv.html`: the PhD advisor's name, and
+confirmation of the official position title. Everything else on every page is
+real content.
 
-1. **Your title and department** — in the sidebar of all five pages.
-2. **Email, Google Scholar, ORCID** — sidebar links. Delete any you don't want.
-3. **The About paragraphs** on `index.html`.
-4. **Real publications** on `publications.html`, then mirror two or three of
-   them into the Selected publications block on `index.html`.
-5. **Education and experience** on `cv.html`.
-6. **A photo** — see below.
-7. **Delete the scaffold callout** at the top of `index.html` once the site is
-   presentable.
+Still worth doing:
+
+- **A photo** — see below. The sidebar currently shows an initials placeholder.
+- **Google Scholar** — no profile link yet; the sidebar carries email, ORCID,
+  GitHub and LinkedIn instead.
+
+### Sections hidden in HTML comments
+
+Five sections have no real content yet and are commented out rather than
+deleted, so the markup survives as a template:
+
+| File | Sections |
+|---|---|
+| `publications.html` | Preprints, Conference presentations |
+| `cv.html` | Awards & funding, Teaching & mentoring, Service |
+| `research.html` | Software |
+
+To bring one back, delete the `<!--` before it and the `-->` after it, then
+replace the sample text. Note that HTML comments cannot contain `--`, so avoid
+double hyphens if you edit inside a commented block.
 
 ### Replacing the photo
 
