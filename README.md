@@ -73,15 +73,18 @@ double hyphens if you edit inside a commented block.
 ### Replacing the photo
 
 Save a square image as `assets/img/profile.jpg` (600×600 or larger is plenty),
-then update the `<img>` tag in each page:
+then point the pages at it:
 
 ```bash
-sed -i 's|assets/img/profile\.svg|assets/img/profile.jpg|g' index.html research.html publications.html cv.html
-sed -i 's|/assets/img/profile\.svg|/assets/img/profile.jpg|g' 404.html
+sed -i '/rel="icon"/!s|assets/img/profile\.svg|assets/img/profile.jpg|g' *.html
 ```
 
-Leave the `<link rel="icon">` tags pointing at the SVG, or swap in a real
-favicon.
+That updates the sidebar `<img>` and the `og:image` link-preview tag on all five
+pages, and the `/rel="icon"/!` guard leaves the favicon on the SVG — a photo
+makes a poor 16px icon. Swap in a real `.ico` or `.png` favicon if you'd rather.
+
+`404.html` is covered by the same command: its paths are absolute, but the
+substring still matches.
 
 ### The sidebar is duplicated
 
