@@ -15,28 +15,61 @@
 
 /* 1. Tokens ------------------------------------------------------------- */
 
-:root {
-  /* Light theme */
-  --bg: #fffffe;
-  --bg-subtle: #f6f6f3;
-  --bg-raised: #ffffff;
-  --text: #16191c;
-  --text-muted: #5b6167;
-  --text-faint: #8b9198;
-  --border: #e4e4de;
-  --border-strong: #cfcfc8;
-  --accent: #00674a;          /* Tulane green */
-  --accent-hover: #004b36;
-  --accent-soft: #e8f1ed;
-  --highlight: #b58900;
+/* Colors follow the Tulane University Brand Guide (August 2024).
+   Brand colors are used at their published values; anything derived is
+   noted, and every text pairing below meets WCAG AA (4.5:1 for body text,
+   3:1 for borders and the placeholder marker).
 
-  /* Type */
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
-  --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Palladio,
-    "Book Antiqua", Georgia, serif;
-  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
-    "Liberation Mono", monospace;
+     Tulane Green  PMS 626        #255C4E
+     Tulane White  PMS 7541       #FFFFFF
+     Tulane Blue   PMS 297        #6FC5E8
+     Lichen  #E7F2E0   Moss     #9BA64A   Streetcar #688C3E
+     Midnight #001B3F  Bayou    #138094   Street Tile #B9D7E8
+     Magnolia #F0EBDB  Moon     #EDECE8   Coffee #797066
+     Basin   #343333                                          */
+
+:root {
+  /* Light theme — the brand's green-and-white core */
+  --bg: #ffffff;              /* Tulane White */
+  --bg-subtle: #edece8;       /* Moon */
+  --text: #343333;            /* Basin */
+  --text-muted: #6d655c;      /* Coffee, darkened 10% to clear AA on Moon */
+  --text-faint: #797066;      /* Coffee */
+  --border: #d7d6d2;          /* Moon toward Basin */
+  --border-strong: #90908e;   /* Moon toward Basin, 3:1 for chip outlines */
+  --accent: #255c4e;          /* Tulane Green */
+  --accent-hover: #16372e;    /* Tulane Green, darkened */
+  --accent-soft: #e7f2e0;     /* Lichen */
+  --on-accent: #ffffff;       /* text sitting on --accent */
+  --highlight: #7c853b;       /* Moss, darkened 20% — placeholder marker */
+
+  /* Type — Tulane Brand Guide (August 2024), in the priority it specifies:
+     print fonts first, then the desktop substitutes, then the web-safe
+     ones.
+
+       Print    Adobe Caslon Pro (serif) · Freight Sans Pro (sans)
+       Desktop  Baskerville · Source Code Variable
+       Web safe Georgia · Verdana
+
+     Adobe Caslon Pro and Freight Sans Pro are licensed fonts. They are
+     named first so anyone who has them installed — the guide offers them
+     to Tulane email holders — sees the real thing, but they are NOT
+     self-hosted here: redistributing them from a public site is not
+     permitted by their licence. Everyone else falls through to the
+     brand's own designated substitutes, which is exactly how the guide
+     intends the tiers to work.
+
+     Consequence worth knowing: most visitors will see Georgia headings
+     and Verdana body text. Both are wider than the previous stack.
+
+     Source Code Variable is monospace, so it sits in --font-mono rather
+     than in the body stack where it would be wrong for running text. */
+  --font-sans: "Freight Sans Pro", "FreightSans Pro", FreightSansPro,
+    Verdana, Geneva, "DejaVu Sans", sans-serif;
+  --font-serif: "Adobe Caslon Pro", ACaslonPro, Baskerville,
+    "Baskerville Old Face", Georgia, serif;
+  --font-mono: "Source Code Variable", "Source Code Pro", ui-monospace,
+    SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
 
   /* Spacing / metrics */
   --sidebar-w: 15rem;
@@ -45,20 +78,24 @@
   --radius: 6px;
 }
 
+/* Dark theme — black page, with the brand palette carried in the text,
+   accent and surfaces rather than the background. Tulane Green stays the
+   identity color in both modes; it's relit in HSL (hue and saturation
+   preserved) instead of tinted with white, which would grey it out. */
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #15181b;
-    --bg-subtle: #1c2024;
-    --bg-raised: #1e2226;
-    --text: #e6e4e1;
-    --text-muted: #a3a9af;
-    --text-faint: #7c838a;
-    --border: #2c3237;
-    --border-strong: #3d444b;
-    --accent: #5cba99;
-    --accent-hover: #7fd0b3;
-    --accent-soft: #1b2a25;
-    --highlight: #d8a92b;
+    --bg: #000000;
+    --bg-subtle: #171717;     /* Basin, darkened — a slight lift for cards */
+    --text: #edece8;          /* Moon */
+    --text-muted: #9c958d;    /* Coffee, lightened toward Moon */
+    --text-faint: #837c74;    /* Coffee, lightened slightly */
+    --border: #2a2a2a;
+    --border-strong: #6b6b6b; /* 3:1 on black for chip outlines */
+    --accent: #49b69a;        /* Tulane Green at L=50% */
+    --accent-hover: #66c2aa;  /* Tulane Green at L=58% */
+    --accent-soft: #0a1a16;   /* Tulane Green, darkened */
+    --on-accent: #000000;     /* white on light green fails AA */
+    --highlight: #c3ce7a;     /* Moss, lightened — placeholder marker */
   }
 }
 
@@ -163,7 +200,7 @@ hr {
   z-index: 100;
   padding: 0.6rem 1rem;
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   border-radius: 0 0 var(--radius) 0;
 }
 
@@ -582,9 +619,11 @@ hr {
   margin-bottom: 0.7rem;
 }
 
+/* --text-muted, not --text-faint: this sits on --bg-subtle, where the
+   fainter grey would drop below AA. */
 .project__meta {
   font-size: 0.82rem;
-  color: var(--text-faint);
+  color: var(--text-muted);
 }
 
 /* Callout used for the "site is a work in progress" note */

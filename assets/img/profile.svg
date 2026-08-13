@@ -5,8 +5,8 @@
      role="img" aria-label="Placeholder profile photo">
   <defs>
     <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#0a7a58"/>
-      <stop offset="100%" stop-color="#00553c"/>
+      <stop offset="0%" stop-color="#2E7363"/>
+      <stop offset="100%" stop-color="#1A4238"/>
     </linearGradient>
   </defs>
   <rect width="240" height="240" fill="url(#g)"/>

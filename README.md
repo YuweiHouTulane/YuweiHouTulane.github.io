@@ -34,7 +34,7 @@ robots.txt, sitemap.xml
 ## Filling in the placeholders
 
 Anything still unwritten is wrapped in `<span class="ph">`, which renders with a
-dashed yellow underline so it's obvious in the browser. Hovering shows a note
+dashed olive underline so it's obvious in the browser. Hovering shows a note
 about what belongs there.
 
 To finish a piece of content: replace the text, then **remove the `ph` class**
@@ -54,7 +54,7 @@ Start here, roughly in order of payoff:
    them into the Selected publications block on `index.html`.
 5. **Education and experience** on `cv.html`.
 6. **A photo** — see below.
-7. **Delete the yellow callout** at the top of `index.html` once the site is
+7. **Delete the scaffold callout** at the top of `index.html` once the site is
    presentable.
 
 ### Replacing the photo
@@ -99,11 +99,51 @@ Keep the list to five or six items; delete the oldest as you add new ones.
 
 ## Design notes
 
-- Colors, fonts, and spacing are CSS custom properties at the top of
-  `main.css`. The accent is Tulane green (`#00674a`); change `--accent` to
-  restyle the whole site.
+- Colors follow the **Tulane University Brand Guide (August 2024)**. Brand
+  colors are used at their published values; the few derived shades are
+  labelled as such in `main.css`. Change `--accent` to restyle the whole site.
+
+  | Role | Light | Dark |
+  |---|---|---|
+  | Page | Tulane White `#FFFFFF` | Black `#000000` |
+  | Body text | Basin `#343333` | Moon `#EDECE8` |
+  | Links / accent | Tulane Green `#255C4E` | Tulane Green relit `#49B69A` |
+  | Cards, callouts | Moon `#EDECE8` | `#171717` |
+  | Tag background | Lichen `#E7F2E0` | `#0A1A16` |
+
+  The page is plain white and plain black; the brand palette is carried in
+  the text, accent and surfaces rather than the background. Dark mode keeps
+  **green** as the identity color rather than switching to Tulane Blue, so
+  the site reads the same in both themes. The green is relit in HSL (hue and
+  saturation preserved) rather than tinted with white, which would grey it
+  out.
+- **Every text pairing meets WCAG AA** (4.5:1 body text, 3:1 borders and the
+  placeholder marker) — verified in both themes. If you change `--accent` or
+  either background, re-check contrast rather than assuming.
 - Dark mode follows the visitor's OS setting via
   `@media (prefers-color-scheme: dark)`. There's no manual toggle.
+- **Typography follows the brand guide's tiers**, in the order it specifies:
+
+  | Tier | Serif | Sans |
+  |---|---|---|
+  | Print (primary) | Adobe Caslon Pro | Freight Sans Pro |
+  | Desktop fallback | Baskerville | Source Code Variable |
+  | Web safe | Georgia | Verdana |
+
+  The two print fonts are named first in `--font-serif` / `--font-sans`, so
+  anyone who has them installed sees the real thing. They are **not**
+  self-hosted: their licence doesn't permit serving them from a public
+  site, so there are no `@font-face` rules and still no external requests.
+  Everyone else falls through to the brand's own substitutes — in practice
+  **Georgia headings and Verdana body text** for most visitors.
+
+  Source Code Variable is a monospace face, so it's in `--font-mono`
+  (used by `<code>`) rather than the body stack, where it would be wrong
+  for running text.
+
+  If Tulane holds an Adobe Fonts web licence, you can serve the real
+  Caslon and Freight Sans by adding a Typekit `<link>` to each page's
+  `<head>`. That would be the one external request on the site.
 - The layout is a sticky sidebar next to a single content column, collapsing to
   a stacked header under 56rem.
 - No web fonts, no JavaScript, no external requests — the site works offline and
