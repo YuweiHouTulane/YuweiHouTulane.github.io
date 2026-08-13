@@ -45,24 +45,25 @@ second class like `class="cv__note ph"`:
 grep -rnE 'class="[^"]*\bph\b[^"]*"' *.html
 ```
 
-As of August 2026 two remain, both on `cv.html`: the PhD advisor's name, and
-confirmation of the official position title. Everything else on every page is
-real content.
+As of August 2026 **none remain** — every page carries real content, and the
+command above should return nothing.
 
-Still worth doing:
+Still worth adding when it exists:
 
-- **A photo** — see below. The sidebar currently shows an initials placeholder.
-- **Google Scholar** — no profile link yet; the sidebar carries email, ORCID,
-  GitHub and LinkedIn instead.
+- **The osteoblast heterogeneity atlas** (Pan Z … Hou Y … Deng H-W), held back
+  while the manuscript is in preparation. Uncomment the Preprints section in
+  `publications.html` once it's public.
+- **A CV PDF** — drop it at `assets/cv/yuwei-hou-cv.pdf` and uncomment the
+  download link near the top of `cv.html`.
 
 ### Sections hidden in HTML comments
 
-Five sections have no real content yet and are commented out rather than
-deleted, so the markup survives as a template:
+These sections have no content yet and are commented out rather than deleted,
+so the markup survives as a template:
 
 | File | Sections |
 |---|---|
-| `publications.html` | Preprints, Conference presentations |
+| `publications.html` | Preprints |
 | `cv.html` | Awards & funding, Teaching & mentoring, Service |
 | `research.html` | Software |
 
@@ -72,11 +73,17 @@ double hyphens if you edit inside a commented block.
 
 ### Replacing the photo
 
-Save a square image as `assets/img/profile.jpg` (600×600 or larger is plenty),
-then point the pages at it:
+The sidebar photo is `assets/img/profile.jpg` — an 800×800 centre crop, about
+160 KB. It's loaded on all five pages, so keep any replacement small; the
+original 1122×1402 PNG was 3.1 MB, which is far too heavy for a 136 px avatar.
+`object-fit: cover` in the CSS crops to a circle, so a square source needs no
+special treatment.
+
+To swap in a different file, save it as `assets/img/profile.jpg` and you're
+done — no markup changes. If you use a different filename or format:
 
 ```bash
-sed -i '/rel="icon"/!s|assets/img/profile\.svg|assets/img/profile.jpg|g' *.html
+sed -i '/rel="icon"/!s|assets/img/profile\.jpg|assets/img/YOUR-FILE|g' *.html
 ```
 
 That updates the sidebar `<img>` and the `og:image` link-preview tag on all five
