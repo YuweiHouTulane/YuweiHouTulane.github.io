@@ -54,10 +54,11 @@
 
     <h1 class="page-title">Research</h1>
     <p class="page-intro">
-      <span class="ph" title="Placeholder — one or two sentences framing your research program">A
-      short framing of what ties your projects together — the biological
-      question you keep coming back to, and the computational approach you
-      bring to it.</span>
+      I work on why bone is lost with age, and on what the cells and genes
+      involved are actually doing. That means moving between scales &mdash;
+      genome-wide association data at one end, single cells and their spatial
+      arrangement in tissue at the other, and, from an earlier life in
+      epidemiology, whole populations.
     </p>
 
     <section class="section">
@@ -65,54 +66,72 @@
       <ul class="projects">
 
         <li class="project">
-          <h3 class="ph" title="Placeholder — project title">Spatial architecture of the bone marrow niche</h3>
-          <p class="ph" title="Placeholder — 2–4 sentences: the question, your approach, what you found or expect to find">
-            What question does this project answer, and why does it matter?
-            Describe the data (platform, tissue, sample size), the method you
-            built or applied, and the result. Two to four sentences is plenty —
-            link to the paper for the rest.
+          <h3>Mapping the signaling between bone and muscle</h3>
+          <p>
+            Bone and skeletal muscle sit against each other and communicate
+            constantly &mdash; through cytokines, growth factors and
+            extracellular matrix proteins &mdash; but little was known about
+            where in the tissue that conversation actually happens. We applied
+            10x Visium spatial transcriptomics to mouse femur and the muscle
+            beside it, resolved eight major cell types, and inferred the
+            ligand&ndash;receptor pairs carrying signal across the boundary.
+            Collagen, tenascin and thrombospondin pathways all converge on
+            Sdc4; immunostaining confirmed those pairs sit where the model put
+            them, and independent mouse and human single-cell datasets
+            reproduced most of the result.
           </p>
           <p class="project__meta">
-            <span class="ph">Visium HD &middot; snRNA-seq &middot; R / Python</span>
+            <span>10x Visium &middot; CellChat &middot;
+            <a href="publications.html">Bone Research</a>, 2026</span>
           </p>
         </li>
 
         <li class="project">
-          <h3 class="ph" title="Placeholder — project title">Genetic determinants of bone mineral density</h3>
-          <p class="ph" title="Placeholder — 2–4 sentences: the question, your approach, what you found or expect to find">
-            Second project. Same shape: question, data, method, finding. If the
-            project has a public repo or a preprint, link it from the
-            <a href="publications.html">publications</a> page and mention the
-            connection here.
+          <h3>Genetics of osteoporosis and skeletal aging</h3>
+          <p>
+            Association studies have turned up a great many loci for bone
+            mineral density, but a variant is not a mechanism. This strand of
+            my work runs genome-wide association analysis on skeletal traits
+            and tries to connect the signals back to the cell types and
+            expression programs that could plausibly carry them &mdash; which
+            is where the single-cell and spatial work earns its keep.
           </p>
           <p class="project__meta">
-            <span class="ph">GWAS &middot; Mendelian randomization &middot; SMR / coloc</span>
+            <span>GWAS &middot; Single-cell RNA-seq &middot; Multi-omics
+            integration</span>
           </p>
         </li>
 
         <li class="project">
-          <h3 class="ph" title="Placeholder — project title">Third project or methods tool</h3>
-          <p class="ph" title="Placeholder — 2–4 sentences: the question, your approach, what you found or expect to find">
-            If you maintain a software tool, this is a good slot for it: what it
-            does, who it's for, and where to get it. Delete this card if you
-            only have two projects — an honest two beats a padded three.
+          <h3>Why chronic disease risk varies by geography</h3>
+          <p>
+            The &ldquo;diabetes belt&rdquo; is a band of US counties where
+            diabetes prevalence runs well above the national rate. Using
+            responses from about 398,000 adults in the 2019 BRFSS, we modeled
+            that gap with logistic regression and random forests to rank what
+            explains it. Low socioeconomic status, physical inactivity and
+            hypertension came out on top &mdash; which says something concrete
+            about where intervention would do the most good.
           </p>
           <p class="project__meta">
-            <span class="ph">Method development</span>
+            <span>BRFSS &middot; Random forest &middot;
+            <a href="publications.html">Primary Care Diabetes</a>, 2026</span>
           </p>
         </li>
 
       </ul>
     </section>
 
+    <!-- Hidden until there's something public to link. Delete this comment
+         marker and the one after </section> to bring the section back. -->
+    <!--
     <section class="section">
       <h2 class="section__title">Software</h2>
       <p>
-        <span class="ph" title="Placeholder — list packages/pipelines you maintain, or delete this whole section">Packages
-        and pipelines you maintain, with links to their repositories. Delete
-        this section if it doesn't apply yet.</span>
+        Packages and pipelines you maintain, with links to their repositories.
       </p>
     </section>
+    -->
 
   </main>
 </div>
