@@ -473,7 +473,8 @@ hr {
   margin: 0 0 0.2rem;
 }
 
-.pub__authors .me {
+.pub__authors .me,
+.cv__where .me {
   color: var(--text);
   font-weight: 600;
 }
